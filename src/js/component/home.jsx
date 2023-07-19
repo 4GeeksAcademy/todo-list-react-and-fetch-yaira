@@ -1,6 +1,8 @@
-
+import React from "react";
 import InputBar from "./input";
+import Header from "./header";
 import BottomPart from "./bottomPart";
+import Api from "../todoAPI";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";

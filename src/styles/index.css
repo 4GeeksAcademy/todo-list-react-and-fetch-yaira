@@ -10,3 +10,34 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+body {
+    background-image: linear-gradient(to right, #8300ff , #00deff);
+}
+
+.notepad {
+    border: solid black 1px;
+    width: 33%;
+    box-shadow: black;
+    background-color: lavenderblush;
+}
+
+.input {
+    box-sizing: border-box;
+    width: 75%;
+    margin-left: 3px;
+    
+}
+
+ul {
+    list-style-type: none; /* Remove bullets */
+    padding-left: 1rem;
+    margin: 0; /* Remove margins */
+}
+
+
+/* list is not on hover and is the parent of button so button is not visible*/
+li:not(:hover) > .button {
+    color: red ;
+    display: block;
+    visibility: hidden;
+}

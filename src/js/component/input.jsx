@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import BottomPart from "./bottomPart";
+import Api from "../todoAPI";
 
 
 const InputBar = () => {
@@ -9,6 +10,31 @@ const InputBar = () => {
     //todoinput is the name of the input, 
     //in the IF() todo is saying 'cleandishes' and 'CLEANDISHES' is the same so isNew is false because its not a new thing
     // 
+
+    const addTodos = async (e) => {
+
+        e.preventDefault()
+        let newTodo = e.target.todoInput.value;
+        let isNew = true;        
+        todos.forEach(todo => {
+            if(todo.toLowerCase() === newTodo.toLowerCase()){
+                isNew =false
+            }
+        })
+        const response = await fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/sombra", {
+          method:'PUT',
+          headers:{'Content-type': 'application/json'},
+          body:JSON.stringify(todos)
+        })
+        .then((response)=> {
+            response.status == 200 ? isNew : setTodos([...todos, newTodo]) ? alert('todo already exist') : e.target.todoInput.value = ''
+
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
     const createTask = (e) => {
         e.preventDefault()
         let newTodo = e.target.todoInput.value;
@@ -23,16 +49,28 @@ const InputBar = () => {
     }
 
     //how
-    function removeTodo(e, index) {
+    const removeTodo = async (e, index) => {
         e.preventDefault();
         let filtered = todos.filter((todo, i) => i !== index);
-        setTodos(filtered);
+        const response = await fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/sombra", {
+            method:'PUT',
+            headers:{'Content-type': 'application/json'},
+            body:JSON.stringify(filtered)
+          })
+          .then((response)=> {
+              response.status == 200 ? setTodos(filtered) : ''
+  
+          })
+          .catch((error) => {
+            console.log(error)
+        })
+
     }
 
     // using the <form> eliminates the need to make an enter function
     return(
         <div>
-            <form onSubmit={createTask}>
+            <form onSubmit={addTodos}>
             <input 
             className="input"
             name="todoInput" 
@@ -56,6 +94,7 @@ const InputBar = () => {
                 })}
             </ul>
             <BottomPart todos = {todos} />
+            <Api todos = {todos} />
 
         </div>
     );

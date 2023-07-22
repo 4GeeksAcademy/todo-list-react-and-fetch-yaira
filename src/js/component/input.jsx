@@ -25,15 +25,16 @@ const InputBar = () => {
               } ,[]);
       
     useEffect(() => {
-         const response = fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/yvv", {
+         fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/yvv", {
           method:'PUT',
           headers:{'Content-type': 'application/json'},
           body:JSON.stringify(todos)
         })
         .then((response)=> {
-            response.status == 200 ? isNew : setTodos([...todos, newTodo]) ? alert('todo already exist') : e.target.todoInput.value = ''
+            return response.json
 
         })
+        .then((res) => console.log(res))
         .catch((error) => {
             console.log(error)
         })
@@ -54,6 +55,10 @@ const InputBar = () => {
         e.target.todoInput.value = ''
     }
 
+    const inputChange = (e) => {
+        setObj({ label: e.target.value, done: false });
+      };
+
     //how
     const removeTodo = async (e, index) => {
         e.preventDefault();
@@ -66,6 +71,7 @@ const InputBar = () => {
         <div>
             <form onSubmit={createTask}>
             <input 
+            onChange={inputChange}
             className="input"
             name="todoInput" 
             type="text" 

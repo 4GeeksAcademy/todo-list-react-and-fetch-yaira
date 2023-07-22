@@ -15,15 +15,15 @@ const InputBar = () => {
         fetch("https://assets.breatheco.de/apis/fake/todos/user/yvv")
              //turns it into json format 
                .then((response) =>{ 
-               return response.json()})
+                response.json()})
              //then setpost value in to data
                .then((data) => {
-               setTodos(setPosts(data));
+               setTodos(data);
                  console.log(data);
                })
                .catch((error) => console.log(error));
               } ,[]);
-      
+            //   https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/sombra
     useEffect(() => {
          fetch("https://assets.breatheco.de/apis/fake/todos/user/yvv", {
           method:'PUT',
@@ -31,8 +31,8 @@ const InputBar = () => {
           body:JSON.stringify(todos)
         })
         .then((response)=> {
-            return response.json
-
+            return response.json,
+            console.log(response)
         })
         .then((res) => console.log(res))
         .catch((error) => {

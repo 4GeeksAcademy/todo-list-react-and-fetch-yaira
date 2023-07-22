@@ -25,7 +25,7 @@ const InputBar = () => {
               } ,[]);
       
     useEffect(() => {
-         fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/yvv", {
+         fetch("https://assets.breatheco.de/apis/fake/todos/user/yvv", {
           method:'PUT',
           headers:{'Content-type': 'application/json'},
           body:JSON.stringify(todos)
